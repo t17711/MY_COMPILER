@@ -1,6 +1,6 @@
-**The grammar for this compiler is
+#The grammar for this compiler is
 
-**Program start**
+##Program start
 
   \<start-prog\>   →  TK_-  BEGIN\<var-decl\>\<statements\>TK_- END .halt
 
