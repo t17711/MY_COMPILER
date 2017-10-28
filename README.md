@@ -2,8 +2,15 @@ Compiler project
 
 # Instructions
 
+## STACK ##
+- Docker
+- Ubuntu image: ubuntu xenial
+- GCC 5.4
+
+
 ## RUNNING ##
 - Install docker
+- Then use the docker-compose to build and start the container. If not when running run.sh it will automatically do that
 - Then to compile execute ./run.sh -m which starts docker if its not started and calls make on code
 - To run execute ./run.sh -r "code name" it will pass file name to main. Code file needs to be in docker container, so just save it along with this program. Here i put them in test
 - To go into docker container to do ./run.sh -e
