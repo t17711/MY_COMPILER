@@ -24,64 +24,49 @@ My program has 3 part:
 2. Statements
 3. procedures
 
-```
-So body looks like:
-```
-{This is start of program
+### So body looks like: ###
 
 ```
+{ <- This is start of program
+
 {
-```
-```
-Variable declaration
-```
-```
+	Variable declaration
 }
-```
-```
+
 {
-```
-```
-Statements
-```
-```
+	Statements
 }
+
+	Procedures => name(){}
+
+} <- This is end of program
 ```
-```
-Procedures
-```
-} end of program
 
 1. Declaration
 
 ```
 For declaration I have types
-```
-```
 a. For Int, char, bool, float and procedures I declare like:
-```
-```
 Int x, y, z;
-```
-```
 Procedure a, b, c;
-```
-```
 b. For array I declare for bool , Int , char and float only:
+```
+
+```
 Int [10];
 Bool [50];
 ```
+
 2. Statements
-    a. Procedure call
+a. Procedure call
 
 ```
 For declared procedure just do
-```
-```
 A ();
 ```
-```
+
 b. Assignment
+
 i. Primitives like Int bool are assigned like
 ```
 
