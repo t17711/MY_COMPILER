@@ -2,6 +2,15 @@ Compiler project
 
 # Instructions
 
+## RUNNING ##
+- Install docker
+- Then to compile execute ./run.sh -m which starts docker if its not started and calls make on code
+- To run execute ./run.sh -r "code name" it will pass file name to main. Code file needs to be in docker container, so just save it along with this program. Here i put them in test
+- To go into docker container to do ./run.sh -e
+- to clean ./run.sh -c
+
+## Language ##
+
 My program has 3 part:
 
 1. Variable declaration
