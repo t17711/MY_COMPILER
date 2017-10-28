@@ -30,14 +30,14 @@ My program has 3 part:
 { <- This is start of program
 
 {
-	Variable declaration
+	<Variable declaration>
 }
 
 {
-	Statements
+	<statements>
 }
 
-	Procedures => name(){}
+	<Procedures> => name{<statements>}
 
 } <- This is end of program
 ```
@@ -46,9 +46,9 @@ My program has 3 part:
 
 ```
 For declaration I have types
-a. For Int, char, bool, float and procedures I declare like:
+a. For Int, char, bool, float I declare the varaables like:
 Int x, y, z;
-Procedure a, b, c;
+procedure is declared simply name{<statements>} in procedure area
 b. For array I declare for bool , Int , char and float only:
 ```
 
@@ -69,75 +69,74 @@ b. Assignment
 
 i. Primitives like Int bool are assigned like
 ```
-
-Compiler project
-
-```
 X = 10; y = ‘c’;
 ```
-```
+
 ii. Array is assigned like
 ```
-```
 X [10] = 20;
-```
-```
 Array index is always integer. I could not do for other in time.
 ```
-```
+
 c. If condition
-For if I do
+```
+If <condition> {
+	<Statements>;
+}
+
 The condition can be any expression that results in bool like x>0 && y + 12 > 50
-If condition {
-Statements;
-}
+```
+
 d. Do while
+
+```
 Do {
-Statements.
+	<Statements>.
 }
-While conditions
+While <conditions>
+```
+
 e. While
-While condition {
-Statements.
+
+```
+While <condition> {
+	<Statements>
 }
+```
+
 f. For loop
-For (assignment; condition; increment) {
-Statement.
+
+```
+For (<assignment>; <condition>; <increment>) {
+	<Statement>
 }
+
 Assignment for already declared integer like I = 0;
 Condition can be any expression that results in bool, or I get error
 Increment is any assignment like I = i+10;
 ```
+
 3. Procedure
 
 ```
 I just have id and statements like
-```
-```
 X {
-```
-```
-Statements.
-```
-```
+	<Statements>.
 }
-```
-```
+
 I save the address of code of assignment in symbol tab. Before call I save address after
 call in stack. I jump to address in symbol tab which is the statements in this procedure. After
 statement there is address to the code after procedure call as last item remaining in stack which
 I use to go back.
 ```
-# Language
+
+# Language #
 
 I used enum variables as token name. Each token is a class that has toke name, field for id, int, float, and
 bool. Then I compare those token names for parser.
 
 
-Compiler project
-
-
-##Program start
+## Program start ##
 
   \<start-prog\>   →  TK_-  BEGIN\<var-decl\>\<statements\>TK_- END .halt
 
