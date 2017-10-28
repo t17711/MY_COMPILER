@@ -1,0 +1,12 @@
+{
+	{
+		// declaration
+
+
+	}
+	{
+	// statements
+		print("my ass \n);
+	}
+	
+}

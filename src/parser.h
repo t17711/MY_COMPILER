@@ -2,6 +2,7 @@
 #pragma once
 
 #include "token.h"
+#include <cstring>
 #include <string>
 #include <vector>
 #include "symtab.h"
@@ -11,13 +12,12 @@ class parser
 {
 public:
 	token** token_list;
-	int currtoken;
+	int currtoken=0;
 	symtab* stack;
-	int ip;
+	int ip=0;
 	char* code;
 
 	bool proceed = false;
-	bool error = false;
 
 public:
 	parser(token** c, int token_size);

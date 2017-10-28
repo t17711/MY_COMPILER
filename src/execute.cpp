@@ -1,4 +1,5 @@
 #include "execute.h"
+#include "helper.hpp"
 
 
 /// completed code //////////////////
@@ -32,8 +33,7 @@ int execute::push(){
 	case 'P':  // procedure has integer value for address
 		  t= *(int *)(table->symarray + addr + sizeof(char));
 		 if (t == 0){
-			 error("procedure declared but not created", " ", " ");
-			 return 0;
+			 error("procedure declared but not created");
 		 }
 		 *(int*)(stack + is) = t;
 		is += sizeof(int);
@@ -175,8 +175,7 @@ int execute::pop(){
 			*(int*)(table->symarray + addr) = (int)*(stack + is);
 			break;
 		default:
-			error("bad type ", type1, " ");
-			return 0;
+			error("bad type ");
 		}
 		
 		break;
@@ -195,8 +194,7 @@ int execute::pop(){
 			*(table->symarray + addr) = *(stack + is);
 			break;
 		default:
-			error("bad type ", type1, " ");
-			return 0;
+			error("bad type ", type1);
 		}
 		break;
 	case 'F':
@@ -214,8 +212,7 @@ int execute::pop(){
 			*(float*)(table->symarray + addr) = static_cast<float>((*stack + is));
 			break;
 		default:
-			error("bad type ", type1, " ");
-			return 0;
+			error("bad type ", type1);
 		}
 		break;
 	case 'B':
@@ -225,8 +222,7 @@ int execute::pop(){
 		}
 		break;
 	default:
-		error("bad type ", type2, " ");
-		return 0;
+		error("bad type ", type2);
 	}
 	return 1;
 }
@@ -261,8 +257,7 @@ int execute::print(){
 			std::cout << "FALSE";
 		break;
 	default:
-		error("bad type ", type, " ");
-		return 0;
+		error("bad type ", type);
 	}
 	return 1;
 }
@@ -344,7 +339,7 @@ int execute::add(){
 
 					break;
 			default:
-				error("type error", " ", " ");
+				error("TYPE ERROR: Invalid type: invalid type");
 				return 0;
 			}
 			break;
@@ -400,7 +395,7 @@ int execute::add(){
 				is += sizeof(char);
 				break;
 			default:
-				error("type error", " ", " ");
+				error("TYPE ERROR: Invalid type");
 				return 0;
 			}
 			break;
@@ -457,12 +452,12 @@ int execute::add(){
 				is += sizeof(char);
 				break;
 			default:
-				error("type error", " ", " ");
+				error("TYPE ERROR: Invalid type");
 				return 0;
 			}
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 	
@@ -546,7 +541,7 @@ int execute::mul(){
 
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
@@ -602,7 +597,7 @@ int execute::mul(){
 			is += sizeof(char);
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
@@ -659,11 +654,11 @@ int execute::mul(){
 			is += sizeof(char);
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 		}
 		break;
 	default:
-		error("type error", " ", " ");
+		error("TYPE ERROR: Invalid type");
 	}
 
 	return 1;
@@ -688,7 +683,7 @@ int execute::div(){
 		is += sizeof(char);
 		break;
 	default:
-		error("type error in negation", " ", " ");
+		error("TYPE ERROR: Invalid type in negation");
 	}
 	mul();
 	return 1;
@@ -713,7 +708,7 @@ int execute::neg(){
 		is += sizeof(char);
 		break;
 	default:
-		error("type error in negation", " ", " ");
+		error("TYPE ERROR: Invalid type in negation");
 	}
 
 	return 1;
@@ -721,7 +716,7 @@ int execute::neg(){
 
 /*******************boolean calculations*************************/
 // compare top two consquuetivbe values in stack
-int execute::and(){
+int execute::AND(){
 	ip += sizeof(code_tk);
 	// go back to type
 	is -= sizeof(char);
@@ -743,19 +738,19 @@ int execute::and(){
 
 		}
 		else{
-			error("COmparision type error ", type2, type1);
+			error("COMPARISION TYPE ERROR: Invalid type ", type2, type1);
 				return 0;
 		}
 
 	}
 	else{
-		error("COmparision type error ", " ", type1);
+		error("COMPARISION TYPE ERROR: Invalid type ", type1);
 		return 0;
 	}
 	return 1;
 }
 
-int execute::or(){
+int execute::OR(){
 	ip += sizeof(code_tk);
 	// go back to type
 	is -= sizeof(char);
@@ -777,13 +772,13 @@ int execute::or(){
 
 		}
 		else{
-			error("COmparision type error ", type2, type1);
+			error("COMPARISION TYPE ERROR: Invalid type ", type2, type1);
 			return 0;
 		}
 
 	}
 	else{
-		error("COmparision type error ", " ", type1);
+		error("COMPARISION TYPE ERROR: Invalid type ", type1);
 		return 0;
 	}
 	return 1;
@@ -853,7 +848,7 @@ int execute::less(){
 			break;
 
 		default:
-			error("type error", type2, " ");
+			error("TYPE ERROR: Invalid type", type2);
 			return 0;
 		}
 		break;
@@ -909,7 +904,7 @@ int execute::less(){
 
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
@@ -965,12 +960,12 @@ int execute::less(){
 			is += sizeof(char);
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
 	default:
-		error("type error", " ", " ");
+		error("TYPE ERROR: Invalid type");
 		return 0;
 	}
 	return 1;
@@ -1040,7 +1035,7 @@ int execute::less_eql(){
 			break;
 
 		default:
-			error("type error", type2, " ");
+			error("TYPE ERROR: Invalid type", type2);
 			return 0;
 		}
 		break;
@@ -1096,7 +1091,7 @@ int execute::less_eql(){
 
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
@@ -1152,12 +1147,12 @@ int execute::less_eql(){
 			is += sizeof(char);
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
 	default:
-		error("type error", " ", " ");
+		error("TYPE ERROR: Invalid type");
 		return 0;
 	}
 	return 1;
@@ -1227,7 +1222,7 @@ int execute::greater(){
 			break;
 
 		default:
-			error("type error", type2, " ");
+			error("TYPE ERROR: Invalid type", type2);
 			return 0;
 		}
 		break;
@@ -1283,7 +1278,7 @@ int execute::greater(){
 
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
@@ -1339,12 +1334,12 @@ int execute::greater(){
 			is += sizeof(char);
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
 	default:
-		error("type error", " ", " ");
+		error("TYPE ERROR: Invalid type");
 		return 0;
 	}
 	return 1;
@@ -1414,7 +1409,7 @@ int execute::greater_eql(){
 			break;
 
 		default:
-			error("type error", type2, " ");
+			error("TYPE ERROR: Invalid type", type2);
 			return 0;
 		}
 		break;
@@ -1470,7 +1465,7 @@ int execute::greater_eql(){
 
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
@@ -1526,12 +1521,12 @@ int execute::greater_eql(){
 			is += sizeof(char);
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
 	default:
-		error("type error", " ", " ");
+		error("TYPE ERROR: Invalid type");
 		return 0;
 	}
 	return 1;
@@ -1601,7 +1596,7 @@ int execute::eql(){
 			break;
 
 		default:
-			error("type error", type2, " ");
+			error("TYPE ERROR: Invalid type", type2);
 			return 0;
 		}
 		break;
@@ -1657,7 +1652,7 @@ int execute::eql(){
 
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
@@ -1713,19 +1708,19 @@ int execute::eql(){
 			is += sizeof(char);
 			break;
 		default:
-			error("type error", " ", " ");
+			error("TYPE ERROR: Invalid type");
 			return 0;
 		}
 		break;
 	default:
-		error("type error", " ", " ");
+		error("TYPE ERROR: Invalid type");
 		return 0;
 	}
 	return 1;
 }
 
 // perform operation on top stack
-int execute::not(){
+int execute::NOT(){
 	ip += sizeof(code_tk);
 	is -= sizeof(char);
 
@@ -1738,7 +1733,7 @@ int execute::not(){
 		is += sizeof(char);
 	}
 	else{
-		error("cant negate not bool ", type, " ");
+		error("cant negate not bool ", type);
 		return 0;
 	}
 	return 1;
@@ -1853,7 +1848,7 @@ int execute::dup(){
 		is = p;
 		break;
 	default:
-		error("Cant copy type ", t, " ");
+		error("Cant copy type ", t);
 		return 0;
 	}
 	return 1;
@@ -1878,7 +1873,7 @@ int execute::remove(){
 		if (is < 0) is = 0;	
 		break;
 	default:
-		error("Cant remove type ", t, " ");
+		error("Cant remove type ", t);
 		return 0;
 	}
 
@@ -1893,7 +1888,7 @@ int execute::geti(){
 	is -= sizeof(char);
 	char t = *(stack + is);
 	if (t != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 
@@ -1915,7 +1910,7 @@ int execute::getc(){
 	is -= sizeof(char);
 	char t = *(stack + is);
 	if (t != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 
@@ -1937,7 +1932,7 @@ int execute::getf(){
 	is -= sizeof(char);
 	char t = *(stack + is);
 	if (t != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 
@@ -1959,7 +1954,7 @@ int execute::getb(){
 	is -= sizeof(char);
 	char t = *(stack + is);
 	if (t != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 
@@ -1991,7 +1986,7 @@ int execute::puti(){
 	is -= sizeof(char);
 	char type = *(stack + is);
 	if (type != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 
@@ -2021,7 +2016,7 @@ int execute::putc(){
 	is -= sizeof(char);
 	char type = *(stack + is);
 	if (type != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 	is -= sizeof(int);
@@ -2048,7 +2043,7 @@ int execute::putf(){
 	is -= sizeof(char);
 	char type = *(stack + is);
 	if (type != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 	is -= sizeof(int);
@@ -2075,7 +2070,7 @@ int execute::putb(){
 	is -= sizeof(char);
 	char type = *(stack + is);
 	if (type != 'I'){
-		error("bad address type ", " ", t);
+		error("bad address type ", t);
 		return 0;
 	}
 	is -= sizeof(int);

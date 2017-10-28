@@ -18,15 +18,15 @@ public:
 	int pushf();
 	int pop();
 	int print();
-	int and();
-	int not();
+	int AND();
+	int NOT();
 	int jmp();
 	int eof();
 	int pos();
 	int neg();
 	int printc();
 
-	int or();
+	int OR();
 	int greater();
 	int greater_eql();
 	int less();
@@ -60,8 +60,5 @@ public:
 	char* stack;
 	int is;
 	symtab* table;
-
-	bool proceed = false;
-	bool error = false;
 };
 

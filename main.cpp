@@ -1,32 +1,25 @@
-#pragma warning(disable:4996)
 
-#include "scanner.h"
-#include "parser.h"
-#include "execute.h"
+#include "src/scanner.h"
+#include "src/parser.h"
+#include "src/execute.h"
+#include "src/helper.hpp"
 
 using namespace std;
 
-int main(int argc, char **argv)
+int main(int argc, char *args[])
 {
-	Restart:
-	scanner c = scanner();
-	c.get_token();
-
-	if (c.proceed == false){
-		printf("restart program");\
-		goto Restart;
+	if(argc != 2){
+		std::cout<<"Please provide input file to compile or execute."<<endl; 
+		exit(EXIT_FAILURE);
 	}
-	//c.print();
+
+	scanner c = scanner(args[1]);
+	// c.print();
 	
 	parser p = parser(c.token_list, c.j);
-	p.start_prog();
-
-	if (p.proceed == false){
-		printf("restart program");
-		goto Restart;
-	}
+		
 	//p.code_print();
-	//p.stack->print();
+    //p.stack->print();
 	
    execute e = execute(p.code, p.stack);
    code_tk t = *(code_tk*)(e.code + e.ip);
@@ -45,15 +38,15 @@ typedef int (execute::*Function) ();
 	   &execute::sub,
 	   &execute::mul,
 	   &execute::div,
-	   &execute::not,
-	   &execute::and,
+	   &execute::NOT,
+	   &execute::AND,
 	   &execute::jmp,
 	   &execute::eof,
 	   &execute::pos,
 	   &execute::neg,
 	   &execute::print,
 	   &execute::printc,
-	   &execute::or,
+	   &execute::OR,
 	   &execute::greater,
 	   &execute::greater_eql,
 	   &execute::less,
@@ -79,12 +72,8 @@ typedef int (execute::*Function) ();
 	   //std::cout << code_tk_string[t] << endl;
 	   t = *(code_tk*)(e.code + e.ip);
 	   v = (e.*exe[t])();
-	   if (v == 0)
-	   {
-		   goto Restart;
-	   }
+	   if (v == 0) exit(EXIT_FAILURE);
    }
 
-	goto Restart;
 	return 0;
 }

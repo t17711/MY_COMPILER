@@ -1,4 +1,140 @@
-#The grammar for this compiler is
+Compiler project
+
+# Instructions
+
+My program has 3 part:
+
+1. Variable declaration
+2. Statements
+3. procedures
+
+```
+So body looks like:
+```
+{This is start of program
+
+```
+{
+```
+```
+Variable declaration
+```
+```
+}
+```
+```
+{
+```
+```
+Statements
+```
+```
+}
+```
+```
+Procedures
+```
+} end of program
+
+1. Declaration
+
+```
+For declaration I have types
+```
+```
+a. For Int, char, bool, float and procedures I declare like:
+```
+```
+Int x, y, z;
+```
+```
+Procedure a, b, c;
+```
+```
+b. For array I declare for bool , Int , char and float only:
+Int [10];
+Bool [50];
+```
+2. Statements
+    a. Procedure call
+
+```
+For declared procedure just do
+```
+```
+A ();
+```
+```
+b. Assignment
+i. Primitives like Int bool are assigned like
+```
+
+Compiler project
+
+```
+X = 10; y = ‘c’;
+```
+```
+ii. Array is assigned like
+```
+```
+X [10] = 20;
+```
+```
+Array index is always integer. I could not do for other in time.
+```
+```
+c. If condition
+For if I do
+The condition can be any expression that results in bool like x>0 && y + 12 > 50
+If condition {
+Statements;
+}
+d. Do while
+Do {
+Statements.
+}
+While conditions
+e. While
+While condition {
+Statements.
+}
+f. For loop
+For (assignment; condition; increment) {
+Statement.
+}
+Assignment for already declared integer like I = 0;
+Condition can be any expression that results in bool, or I get error
+Increment is any assignment like I = i+10;
+```
+3. Procedure
+
+```
+I just have id and statements like
+```
+```
+X {
+```
+```
+Statements.
+```
+```
+}
+```
+```
+I save the address of code of assignment in symbol tab. Before call I save address after
+call in stack. I jump to address in symbol tab which is the statements in this procedure. After
+statement there is address to the code after procedure call as last item remaining in stack which
+I use to go back.
+```
+# Language
+
+I used enum variables as token name. Each token is a class that has toke name, field for id, int, float, and
+bool. Then I compare those token names for parser.
+
+
+Compiler project
+
 
 ##Program start
 

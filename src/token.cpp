@@ -1,4 +1,14 @@
 #include "token.h"
+#include "helper.hpp"
+
+token* tk(const token_name& n){
+	token* temp = new token(n);
+	return temp;
+}
+
+
+
+
 token::token(){
 	this->name = TK;
 	this->id = "";

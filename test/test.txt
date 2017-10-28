@@ -1,0 +1,94 @@
+{
+	{
+	// declaration
+		int i, j , k , l;
+		char m, asd , ii , loop;
+		bool asdf,asde,sdfr,asdc;
+		float tre;
+		procedure my, your, everybody;
+		int[5] x;
+	}
+	
+	// statements
+	{
+		// call procedure
+		my();
+
+		your();
+		
+		everybody();
+	}
+
+	// write procedures
+	my{
+		print("Entered procedure my \n");
+		tre = 1.009e5; 
+		k =1;		
+		l = 10;		
+		j= - k - l;	
+		m = 'j';
+		l = 100+j;
+
+		print(tre); print('\n');
+		print("l is");		print(l);		print('\n');
+		print("j is");		print(j);		print('\n');
+
+		i=4;		
+	
+		// do while loop
+		do{
+			i=i-1;
+		}while ( i > 1);
+
+		print(i);		print('\n');
+		// while loop
+		while(i<8){
+			print(" while Statement "); print(i);		print('\n');		i=i+1;
+		}
+	}
+
+	your{
+		print("Entered procedure your \n");
+
+		for (i =0; i<9; i=i+1){
+			print("For loop at  ");	print(i);	print('\n');
+			// if statement
+			if (i == 4){
+				print("	If Statement ");	print(i);	print('\n');
+			}
+			else{
+				print(" Else Statement ");	print(i);	print('\n');
+			}
+
+			// switch case statement
+			switch (i){
+				case 10:
+					print(" Switch case 10\n");
+				case 6:
+					print(" Switch case 6 \n");
+				case 8:
+					print(" Switch case 8 \n");
+				case 7:
+					print(" Switch case 7 \n");
+				case 9:
+					print(" Switch case 9 \n");
+
+				default:
+					print(" default "); print(i); print('\n');
+			}
+		}
+	}
+	
+	everybody{
+		print("Entered everybody procedure\n");
+		x[1]=10;
+		x[0]=100;
+		x[5]=90;
+		print("print array items\n");
+		print("x[1] is");		print(x[1]);		print('\n');
+		print("x[0] is");		print(x[0]);		print('\n');
+		print("x[5] is");		print(x[5]);		print('\n');
+	}
+
+	
+}

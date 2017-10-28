@@ -1,10 +1,11 @@
-#pragma once
+#ifndef STRINGVECTOR_H_
+#define STRINGVECTOR_H_
+
 #include <string>
 #include <iostream>
 
 #define GENERATE_ENUM(ENUM) ENUM,
 #define GENERATE_STRING(STRING) #STRING,
-#define error(A,B,C)(std::cout<<A<<" " <<B<< " " <<C<<std::endl ) 
 
 #define for_tk_op(tk) \
 	tk(op_push)\
@@ -108,6 +109,8 @@ static const char *code_tk_string[] = {
 	tk2(TK_SQUARE_OPEN)\
 	tk2(TK_SQUARE_CLOSE)\
 	tk2(TK_PROCEDURE_DEF)\
+	tk2(TK_QUOTE)\
+	tk2(TK_DOUBLE_QUOTE)\
 
 
 	
@@ -119,8 +122,7 @@ static const char *code_tk_string[] = {
 		for_tk_name(GENERATE_STRING)
 	};
 
-class token
-{
+class token{
 public:
 	token();
 	token(const token_name &);
@@ -136,3 +138,7 @@ public:
 	char char_val;
 };
 
+// for easy instantiation
+token * tk(const token_name &);
+
+#endif
