@@ -13,6 +13,8 @@ CFLAGS  := $(CFLAGS) $(COMMON)
 CC      := g++ -std=c++14 
 LD      := $(CC)
 
+# create build directory
+$(shell mkdir -p $(OBJDIR))
 
 all : $(TARGET) 
 .PHONY : all
@@ -41,5 +43,6 @@ clean :
 	rm -f $(OBJDIR)/* *.exe
 	rm -f $(TARGET)
 	rm -f *stackdump	
+	rmdir $(OBJDIR)
 
 
