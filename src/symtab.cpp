@@ -180,7 +180,7 @@ void symtab::insert_array(string id, int size, char type){
 		*(int*)(symarray + addr) = pos;
 		pos += high;
 	default:
-		fprintf(stderr, "illegal array type " + type);
+		throw  printf ("Invalid type %c \n", type);
 	}
 
 }
