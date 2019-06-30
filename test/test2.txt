@@ -6,7 +6,7 @@
 	}
 	{
 	// statements
-		print("my ass \n);
+		print("my  alone print statement\n");
 	}
 	
-}
+}   

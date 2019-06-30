@@ -1,12 +1,11 @@
 #include "scanner.h"
-#include "helper.hpp"
 
 using namespace std;
 
 void
 scanner::inc(){
 	i++;
-	if(!buffer[i]) error("CODE ENDS BEFORE EOF");
+	if(!buffer[i]) throw "CODE ENDS BEFORE EOF";
 }
 
 // constructor that reads the file converts file to upper case char array
@@ -14,7 +13,7 @@ scanner::scanner(char name[]){
 		ifstream pfile (name, ios::binary); // rb is read as binary
 
 		if (!pfile) {
-			error("FILE READ ERROR: File opening failed \n", " ", " ");
+			throw "FILE READ ERROR: File opening failed";
 		}
 
 		// read the file into string
@@ -49,7 +48,7 @@ scanner::scanner(char name[]){
 
 				// if char doesnot end in next 2 step then error
 				if(input[i]!='\'' && input[i+1]!='\'') {
-					error("CHAR ERROR: ", input[i], "instead of END of CHAR");
+					throw printf("CHAR ERROR: %c %s", input[i], "instead of END of CHAR");
 				}
 
 				// if char ends in i+1 step
@@ -93,7 +92,7 @@ scanner::~scanner(){
 void
 scanner::check_eof(string s){
 	if(buffer[i]==EOF){
-		error("FILE END ERROR: file ends at ", s);
+		throw printf("FILE END ERROR: file ends at %s \n", s);
 	}
 }
 
@@ -106,8 +105,6 @@ scanner::get_token(){
 		// this is start of a token
 	char curr;
 	int a=0;
-	// while(buffer[a] && buffer[a]!=EOF)cout<<buffer[a++];
-	// error("test");
 	i=0;
 
 	while(buffer[i]){
@@ -128,7 +125,7 @@ scanner::get_token(){
 			continue;
 		}
 		else if ('a' <= curr && curr <= 'z'){
-			error("LOWERCASE CHARACTER ERROR: ", curr,"");
+			throw printf("LOWERCASE CHARACTER ERROR: %c\n", curr);
 		}
 		else if ('0' <= curr && curr <= '9'){
 			digit_token();
@@ -142,7 +139,7 @@ scanner::get_token(){
 		// else break 
 		// but if it breks means token was wrong
 		// since we only exit on EOF
-		error("INVALID CHARACTER: ", curr);
+		throw printf("INVALID CHARACTER: %c", curr);
 	}
 
 }
@@ -235,7 +232,7 @@ token*
 scanner::check_operator(char curr){	
 	// if operator not valid then exit
 	if(operator_table.find(curr)==operator_table.end()){
-		error("OPERATOR ERROR: Invalid Operator: ", curr, " ");
+		throw printf("OPERATOR ERROR: Invalid Operator: %s", curr);
 	}
 
 	return tk(operator_table[curr]);
@@ -402,7 +399,7 @@ scanner::digit_token(){
 
 	// digit cannot be followed by character, i did not do hex here maybe later
 	else if (curr >= 'A' && curr <= 'Z'){
-		error("Error in integer ", ""+curr,"");
+		throw printf("Error in integer %c", curr);
 		return;
 	}
 
@@ -493,11 +490,10 @@ scanner::exp_token(){
 	else
 	{
 		printf("bad exp: %c\n", curr);
-		{
-			j++;
-			get_eof();
-			return;
-		}
+		j++;
+		get_eof();
+		return;
+		
 	}
 }
 
@@ -515,7 +511,7 @@ scanner::get_string_token(){
 	while (buffer[i] && curr != '"'){
 		// cout<<curr;
 		if (curr == '\0'){
-			error("STRING ERROR: NULL char in string after ",curr," ");
+			throw printf("STRING ERROR: NULL char in string after %c", curr);
 		}
 		token_list[j]->id += curr;
 
@@ -545,7 +541,7 @@ scanner::get_char_token(){
 			token_list[j]->char_val = '\t';
 			break;
 		default:
-			error("CHARACTER ERROR: bad string escape char ", buffer[i], " ");
+			throw printf("CHARACTER ERROR: bad string escape char %c", buffer[i]);
 		}
 		inc();
 	}
@@ -555,7 +551,7 @@ scanner::get_char_token(){
 	}
 		
 	if (buffer[i]!= '\''){
-		error("CHARACTER ERROR: char not closed", buffer[i], " ");
+		throw printf("CHARACTER ERROR: char not closed", buffer[i]);
 	}
 	else{
 		inc();

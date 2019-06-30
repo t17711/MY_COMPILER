@@ -1,5 +1,4 @@
 #include "parser.h"
-#include "helper.hpp"
 
 /**
  * constructor that just copys pointer to token list, initializes code array, and symtab
@@ -141,7 +140,7 @@ parser::start_prog(){
 		proceed = true;
 		return;
 	}
-	else error("No end of file");
+	else throw "No end of file";
 
 }
 
@@ -195,7 +194,7 @@ parser::array_decl(char t){
 
 	// if it is in symtab  show erro
 	if (stack->check_symtab(curr)) {
-		error(" already declared ", curr);
+		throw printf("already declared %s", curr.c_str());
 	}
 
 	//if not add to stack, just inserts to map declares type
@@ -207,7 +206,7 @@ parser::array_decl(char t){
 		decl();
 	}
 	else {
-		error("no id, there is ", token_name_string[token_list[currtoken]->name]);
+		throw printf("no id, there is %s", token_name_string[token_list[currtoken]->name]);
 	}
 }
 
@@ -221,7 +220,7 @@ parser::namelist(char t){
 
 	// if it is in symtab  show erro
 	if (stack->check_symtab(curr)) {
-		error(" already declared ",curr);
+		throw printf(" already declared %s",curr.c_str());
 	}
 
 	//if not add to stack, just inserts to map declares type
@@ -238,7 +237,7 @@ parser::namelist(char t){
 		decl();
 	}
 	else {
-		error("no id there is ", token_name_string[token_list[currtoken]->name]);
+		throw printf("no id there is %s", token_name_string[token_list[currtoken]->name]);
 	}
 }
 
@@ -282,7 +281,7 @@ parser::type(){
 		case TK_ID:
 			return stack->type(token_list[currtoken]->id);
 		default:
-			error("TYPE ERROR: no type found");
+			throw "TYPE ERROR: no type found";
 			return 'X'; // for compiler flag supression
 	}
 }
@@ -385,7 +384,7 @@ parser::statment_types(){
 			break;
 		default:
 			string temp = token_name_string[curr2];
-			error("SYNTAX ERROR: ", temp, " Is not valid Statement start");
+			throw printf("SYNTAX ERROR: %s Is not valid Statement start", temp.c_str());
 		}
 		break;
 
@@ -418,7 +417,7 @@ parser::statment_types(){
 		return;
 
 	default:
-		error("STATEMENT ERROR", token_name_string[curr]);
+		throw printf("STATEMENT ERROR %s", token_name_string[curr]);
 	}
 	// now go check if there are more statements
 	statment_types();
@@ -463,7 +462,7 @@ parser::array_assign(){
 		break;
 
 	default:
-		error(id.c_str(), " got bad array type during declaration for ", type);
+		throw printf("%s got bad array type during declaration for %c",id.c_str(), type);
 	}
 
 
@@ -473,7 +472,7 @@ parser::array_assign(){
 	addr = *(int*)(stack->symarray + addr + sizeof(char));
 
 	if (i < lo || i > hi){
-		error("Out of index array", " ", id);
+		throw printf("Out of index array %s", id.c_str());
 	}
 	match(TK_SQUARE_CLOSE);
 
@@ -695,7 +694,7 @@ parser::array_value(){
 		break;
 
 	default:
-		error(id.c_str(), " got bad array type during declaration for ", type);
+		throw printf( "%s got bad array type during declaration for %c",id.c_str(), type);
 	}
 
 
@@ -704,7 +703,7 @@ parser::array_value(){
 	addr = *(int*)(stack->symarray + addr + sizeof(char));
 
 	if (i < lo || i > hi){
-		error("Out of index array", " ", id);
+		throw printf("Out of index array %s", id.c_str());
 	}
 	match(TK_SQUARE_CLOSE);
 
@@ -840,7 +839,7 @@ parser::print(){
 					gen_char('\t');
 					break;
 				default:
-					error("bad string operator ", cstr[j], " ");
+					throw printf("bad string operator %c", cstr[j]);
 
 				}
 
@@ -1088,7 +1087,7 @@ parser::match(token_name t){
 	
 
 	if (t != token_list[currtoken]->name){
-		error("WRONG SYNTAX: ", token_name_string[token_list[currtoken]->name], " instead of ",token_name_string[t]);
+		throw printf("WRONG SYNTAX: %s instead of  %s", token_name_string[token_list[currtoken]->name],token_name_string[t]);
 	}
 	else{
 		//cout << "matched ";

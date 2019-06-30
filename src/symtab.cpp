@@ -1,5 +1,4 @@
 #include "symtab.h"
-#include "helper.hpp"
 
 // initialize variables
 symtab::symtab(int size)
